@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-
+from models.course import Course
+from routers.courses import router as course_router
 from app.routers import auth
 
 app = FastAPI(
@@ -8,7 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(auth.router)
-
+app.include_router(course_router)
 
 @app.get("/")
 def root():
