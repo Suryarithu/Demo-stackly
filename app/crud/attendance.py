@@ -7,7 +7,6 @@ def get_attendance_by_id(
     db: Session,
     attendance_id: int
 ) -> Attendance | None:
-
     statement = select(Attendance).where(
         Attendance.id == attendance_id
     )
