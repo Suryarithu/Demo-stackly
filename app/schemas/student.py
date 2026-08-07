@@ -1,18 +1,21 @@
-# Placeholder for Student schema
 from datetime import date, datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class StudentBase(BaseModel):
-    first_name: str = Field(..., min_length=2, max_length=100)
-    last_name: str = Field(..., min_length=2, max_length=100)
-    email: EmailStr
-    phone: str = Field(..., min_length=10, max_length=15)
-    gender: str = Field(..., pattern="^(Male|Female|Other)$")
-    date_of_birth: date
-    address: str = Field(..., min_length=5, max_length=255)
+    user_id: Optional[int] = None
+    student_name: str
+    gender: Optional[str] = None
+    date_of_birth: Optional[date] = None
+    standard: Optional[str] = None
+    section: Optional[str] = None
+    roll_number: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[EmailStr] = None
+    address: Optional[str] = None
+    admission_date: Optional[date] = None
 
 
 class StudentCreate(StudentBase):
@@ -20,13 +23,16 @@ class StudentCreate(StudentBase):
 
 
 class StudentUpdate(BaseModel):
-    first_name: Optional[str] = Field(None, min_length=2, max_length=100)
-    last_name: Optional[str] = Field(None, min_length=2, max_length=100)
-    email: Optional[EmailStr] = None
-    phone: Optional[str] = Field(None, min_length=10, max_length=15)
-    gender: Optional[str] = Field(None, pattern="^(Male|Female|Other)$")
+    student_name: Optional[str] = None
+    gender: Optional[str] = None
     date_of_birth: Optional[date] = None
-    address: Optional[str] = Field(None, min_length=5, max_length=255)
+    standard: Optional[str] = None
+    section: Optional[str] = None
+    roll_number: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[EmailStr] = None
+    address: Optional[str] = None
+    admission_date: Optional[date] = None
 
 
 class StudentResponse(StudentBase):
@@ -34,4 +40,3 @@ class StudentResponse(StudentBase):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
-
