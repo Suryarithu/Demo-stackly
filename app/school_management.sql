@@ -113,3 +113,16 @@ CREATE TABLE fees (
         REFERENCES students(id)
         ON DELETE CASCADE
 );
+CREATE TABLE fees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    total_fee FLOAT NOT NULL,
+    amount_paid FLOAT NOT NULL DEFAULT 0,
+    balance FLOAT NOT NULL,
+    payment_status VARCHAR(20) DEFAULT 'Pending',
+    due_date DATE NOT NULL,
+    CONSTRAINT fk_student
+        FOREIGN KEY (student_id)
+        REFERENCES students(id)
+        ON DELETE CASCADE
+);
