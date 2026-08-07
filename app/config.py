@@ -1,6 +1,7 @@
 # Placeholder for application configuration
 
 from pydantic_settings import BaseSettings
+import os
 
 
 class Settings(BaseSettings):
@@ -21,6 +22,15 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
+
+settings = Settings()
+
+
+class Settings:
+    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./school.db")
+    app_name: str = os.getenv("APP_NAME", "School Management")
+    debug: bool = os.getenv("DEBUG", "false").lower() in ("1", "true", "yes")
 
 
 settings = Settings()
