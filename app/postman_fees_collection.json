@@ -1,0 +1,176 @@
+{
+  "info": {
+    "name": "School Management Fees API",
+    "_postman_id": "d2f5fa7f-9c44-4d2f-9c40-123456789abc",
+    "description": "Postman collection for managing fee records in the School Management API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "fee_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Fee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const data = pm.response.json();",
+              "if (data && data.id) { pm.environment.set('fee_id', data.id); }",
+              "pm.test('created', () => pm.response.to.have.status(201));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": 1,\n  \"student_name\": \"John Doe\",\n  \"amount\": 1500.0,\n  \"paid_amount\": 0.0,\n  \"status\": \"pending\",\n  \"due_date\": \"2026-12-31\",\n  \"description\": \"Term fee payment\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/fees",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "fees"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Fees",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/fees?skip=0&limit=100",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "fees"
+          ],
+          "query": [
+            {
+              "key": "skip",
+              "value": "0"
+            },
+            {
+              "key": "limit",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Fee by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/fees/{{fee_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "fees",
+            "{{fee_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Fee",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"paid_amount\": 500.0,\n  \"status\": \"partial\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/fees/{{fee_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "fees",
+            "{{fee_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Payment Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"paid\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/fees/{{fee_id}}/status",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "fees",
+            "{{fee_id}}",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Fee",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/fees/{{fee_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "fees",
+            "{{fee_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
